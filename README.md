@@ -89,6 +89,7 @@ spend less time on rote maintenance and more on building.
   echo 'source "$HOME/profile/scripts/gh-preflight.sh"' >> ~/.bashrc
   echo 'source "$HOME/profile/scripts/gh-preflight.sh"' >> ~/.zshrc
   ```
+
 - Enable GitHub Pages once the repo is public and confirm the workflow deploys.
 - Keep all Codex-related instructions under `.codex/` versioned with the repo.
 
