@@ -82,8 +82,13 @@ spend less time on rote maintenance and more on building.
 - Populate each project page in `projects/*/README.md` with real descriptions and links.
 - Configure required secrets (`CI_PROFILE_PUSH_TOKEN`, `CODEX_AGENT_AUTH`).
   Sourcing `scripts/gh-preflight.sh` (e.g., from `~/.bashrc` or `~/.zshrc`)
-  maps `CI_PROFILE_PUSH_TOKEN` to `GH_TOKEN` and falls back to `CODEX_AGENT_AUTH`,
-  automatically logging into `gh` when it isn't already authenticated.
+  maps `CI_PROFILE_PUSH_TOKEN` to `GH_TOKEN` (falling back to `CODEX_AGENT_AUTH`)
+  and automatically logs into `gh` when it isn't already authenticated.
+
+  ```bash
+  echo 'source "$HOME/profile/scripts/gh-preflight.sh"' >> ~/.bashrc
+  echo 'source "$HOME/profile/scripts/gh-preflight.sh"' >> ~/.zshrc
+  ```
 - Enable GitHub Pages once the repo is public and confirm the workflow deploys.
 - Keep all Codex-related instructions under `.codex/` versioned with the repo.
 
