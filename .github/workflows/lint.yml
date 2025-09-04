@@ -14,7 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run ShellCheck
-        run: shellcheck scripts/*.sh
+        run: |
+          find . -name '*.sh' -print0 | xargs -0 shellcheck
 
   markdownlint:
     name: MarkdownLint
