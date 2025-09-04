@@ -14,8 +14,8 @@ if ! command -v npx >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! npx --yes codex --version >/dev/null 2>&1; then
-  echo "Error: Codex CLI is required but could not be invoked via npx." >&2
+if ! npx --no-install codex --version >/dev/null 2>&1; then
+  echo "Error: Codex CLI is required but not installed. Please install it globally or locally in your project." >&2
   exit 1
 fi
 
