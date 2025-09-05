@@ -146,5 +146,5 @@ For collaborators:
 
 ## 📬 Contact
 
-- Email: [placeholder@example.com](mailto:placeholder@example.com)
-- LinkedIn: [linkedin.com/in/placeholder](https://www.linkedin.com/in/placeholder)
+- Email: [chad.reesey@outlook.com](mailto:chad.reesey@outlook.com)
+- LinkedIn: [linkedin.com/in/chad-reesey](https://www.linkedin.com/in/chad-reesey)
