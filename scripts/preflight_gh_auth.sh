@@ -13,7 +13,7 @@ fi
 # If gh is installed and a token is available, authenticate non-interactively
 if [[ -n "${GH_TOKEN:-}" ]] && command -v gh >/dev/null 2>&1; then
   if ! gh auth status >/dev/null 2>&1; then
-    printf %s "$GH_TOKEN" | gh auth login --with-token >/dev/null 2>&1
+    printf %s "$GH_TOKEN" | gh auth login --with-token >/dev/null
   fi
 fi
 
