@@ -9,4 +9,5 @@ HOOK="source \"$HOME/.config/codex/preflight_gh_auth.sh\""
 for rc in "${HOME}/.bashrc" "${HOME}/.zshrc"; do
   [ -f "$rc" ] || touch "$rc"
   grep -Fq "$HOOK" "$rc" || echo "$HOOK" >>"$rc"
+
 done
