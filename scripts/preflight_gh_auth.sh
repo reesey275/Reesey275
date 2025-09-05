@@ -15,6 +15,7 @@ if [[ -n "${GH_TOKEN:-}" ]] && command -v gh >/dev/null 2>&1; then
   # Login only when gh lacks credentials
   if ! gh auth status >/dev/null 2>&1; then
     printf %s "$GH_TOKEN" | gh auth login --with-token >/dev/null
+
   fi
 fi
 
