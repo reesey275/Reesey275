@@ -1,37 +1,37 @@
 # Architecture
 
-DevOnboarder runs as a Compose-managed suite of services that automate onboarding
+DevOnboarder runs as a Docker Compose project that automates onboarding
 workflows across Discord and the web. The public API brokers requests from the
-Discord bot and the coordinator-facing frontend, delegates credential checks to
-the auth service, and persists shared state in the program database. Supporting
-tooling—`docker-compose.yml`, the migration runner, and diagnostics utilities—keeps
-those services aligned and observable during day-to-day operations.
+Discord bot and the coordinator-facing frontend, hands credential checks to the
+auth service, and persists shared state in the program database. Supporting
+tooling—Compose itself, the migrations container, and diagnostics jobs—keeps
+those services aligned and observable while coordinators ramp contributors.
 
 ```mermaid
 flowchart LR
-    subgraph Client Interfaces
-        Frontend[Frontend (services/frontend)]
-        DiscordBot[Discord Bot (services/discord-bot)]
+    subgraph Interfaces
+        Frontend[Frontend service]
+        DiscordBot[Discord bot]
     end
 
-    subgraph Core Services
-        API[Program API (services/api)]
-        Auth[Auth Service (services/auth)]
+    subgraph Control Plane
+        API[Public API]
+        Auth[Auth service]
     end
 
     subgraph Data Plane
-        DB[(Shared Program Database (infra/db))]
+        DB[(Shared program database)]
     end
 
     subgraph Supporting Tooling
-        Compose[docker-compose.yml]
-        Migrations[Migration Runner]
-        Diagnostics[Diagnostics Suite]
+        Compose[docker-compose project]
+        Migrations[Migrations job]
+        Diagnostics[Diagnostics job]
     end
 
-    Frontend -->|REST + Webhooks| API
-    DiscordBot -->|Intake Commands| API
-    API -->|Token Checks| Auth
+    Frontend -->|REST + webhooks| API
+    DiscordBot -->|Intake commands| API
+    API -->|Token checks| Auth
     Auth --> DB
     API --> DB
 
@@ -53,7 +53,7 @@ flowchart LR
 
 ## Service responsibilities
 
-- **Program API:** Normalizes onboarding workflows, exposes REST and webhook
+- **Public API:** Normalizes onboarding workflows, exposes REST and webhook
   entry points, and issues tasks to downstream automation via a single
   orchestration interface.
 - **Auth service:** Manages session lifecycles, token validation, and Discord
@@ -72,11 +72,11 @@ flowchart LR
   Every service, including the operational helpers, shares the same network and
   environment configuration so onboarding automation can be reproduced locally
   and in CI with the same command: `docker compose up`.
-- **Migrations:** Ship alongside the Compose project and run as `docker compose
-  run --rm migrations`. Schema changes land before services come online,
-  guaranteeing that the API, auth service, and Discord bot operate against the
-  same data contract during onboarding events.
-- **Diagnostics:** Execute through `docker compose run --rm diagnostics` to hit
-  API endpoints, verify Discord command wiring, and sanity-check the frontend.
-  Results feed the shared database and surface in the frontend so coordinators
-  can catch drift before it blocks a contributor.
+- **Migrations job:** Runs through `docker compose run --rm migrations` so
+  schema changes land before services come online, guaranteeing that the API,
+  auth service, and Discord bot operate against the same data contract during
+  onboarding events.
+- **Diagnostics job:** Executes with `docker compose run --rm diagnostics` to
+  hit API endpoints, verify Discord command wiring, and sanity-check the
+  frontend. Results feed the shared database and surface in the frontend so
+  coordinators can catch drift before it blocks a contributor.
