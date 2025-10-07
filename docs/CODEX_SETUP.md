@@ -4,14 +4,16 @@ This document explains how Codex is configured in this repository for both local
 
 ## Overview
 
-We use OpenAI's Codex CLI for automated code generation and documentation updates. The configuration is designed to work seamlessly in both local development and GitHub Actions environments.
+We use OpenAI's Codex CLI for automated code generation and documentation
+updates. The configuration is designed to work seamlessly in both local
+development and GitHub Actions environments.
 
 ## Configuration Files
 
 ### `.codex/config.toml`
 Main configuration file that defines:
 - Default models and providers
-- Approval policies for different environments  
+- Approval policies for different environments
 - Sandbox settings for security
 - Environment variable handling
 - Multiple profiles for different use cases
@@ -25,7 +27,7 @@ Optimized for automated GitHub Actions workflows:
 - **Sandbox**: `workspace-write` (can modify files in the repository)
 - **Reasoning**: `medium` (balanced performance/quality)
 
-### Local Profile (`--profile local`)  
+### Local Profile (`--profile local`)
 For interactive development:
 - **Model**: `gpt-4o` (higher capability when available)
 - **Approval Policy**: `on-request` (prompts for confirmation)
