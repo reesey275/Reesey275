@@ -1,45 +1,53 @@
 # Architecture
 
-DevOnboarder coordinates onboarding across the platform's public API, agent
-workflows, Discord bot, and knowledge services. The control plane exposes a
-consistent lifecycle for teams that need to bootstrap new contributors, and it
-enforces the automation guardrails that underpin the 95% quality threshold.
+DevOnboarder runs as a collection of services that share a common automation
+surface: the public API, a dedicated auth service, the Discord bot that fronts
+onboarding, and the web frontend used by coordinators. All of them persist state
+in the shared program database and are wrapped by tooling that keeps the
+infrastructure reproducible and observable.
 
 ```mermaid
-flowchart TD
-    subgraph Intake
-        Runbooks
-        Playbooks
-        DiscordBot
+flowchart LR
+    subgraph Client Interfaces
+        Frontend[Frontend (`frontend/`)]
+        DiscordBot[Discord Bot (`bot/`)]
     end
 
-    subgraph ControlPlane
-        Planner[Program Planner]
-        TaskAPI[Task API]
-        AARCollector[AAR Collector]
-        Guardrails[QC Guardrails]
+    subgraph Core Services
+        API[Onboarding API (`api/`)]
+        Auth[Auth Service (`auth/`)]
     end
 
-    subgraph Services
-        Service1[Public API]
-        Service2[Agent Ops]
-        Service3[Knowledge Base]
+    subgraph Data Plane
+        DB[(Shared Program Database)]
     end
 
-    Runbooks --> Planner
-    Playbooks --> Planner
-    DiscordBot --> TaskAPI
-    Planner --> TaskAPI
-    TaskAPI --> Services
-    Services --> AARCollector
-    AARCollector --> Guardrails
-    Guardrails --> Planner
+    subgraph Supporting Tooling
+        Compose[Docker Compose]
+        Migrations[Migration Runner]
+        Diagnostics[Diagnostics Suite]
+    end
+
+    Frontend -->|REST + Webhooks| API
+    DiscordBot -->|Task Hooks| API
+    API -->|Session Validation| Auth
+    Auth --> DB
+    API --> DB
+    Compose --> API
+    Compose --> Auth
+    Compose --> DiscordBot
+    Compose --> Frontend
+    Compose --> DB
+    Migrations --> DB
+    Diagnostics --> API
+    Diagnostics --> Auth
+    Diagnostics --> DiscordBot
+    Diagnostics --> Frontend
 ```
 
-1. Runbooks, playbooks, and Discord interactions feed the control plane with
-   role-specific onboarding requirements.
-2. The program planner sequences those requirements into the three onboarding
-   phases and pushes structured tasks through the Task API.
-3. Services provide execution feedback that is captured as after action
-   reports (AARs). The guardrail layer blocks rollouts that fall below the 95%
-   success threshold and opens QC follow-up tasks until the deficit is closed.
+The automation surfaced by Docker Compose wires each service together with
+shared environment configuration so that onboarding flows can be rehearsed and
+run locally with the same integrations they rely on in production. Database
+migrations keep the API, auth layer, and bots in sync with schema changes, while
+health and diagnostics tooling continuously exercises service endpoints to catch
+integration drift before it affects new contributors.
