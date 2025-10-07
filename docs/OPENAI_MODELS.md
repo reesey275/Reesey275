@@ -30,7 +30,9 @@ This document provides comprehensive information about available OpenAI models, 
 - **gpt-4.1-nano (long context)**: 400,000 TPM, 200 RPM, 4,000,000 TPD
 
 #### GPT-4o Models (Shared Limits)
-- **Models**: gpt-4o-2024-05-13, gpt-4o-2024-08-06, gpt-4o-2024-11-20, gpt-4o-audio-preview, gpt-4o-audio-preview-2024-10-01, gpt-4o-audio-preview-2024-12-17
+- **Models**: gpt-4o-2024-05-13, gpt-4o-2024-08-06, gpt-4o-2024-11-20,
+  gpt-4o-audio-preview, gpt-4o-audio-preview-2024-10-01,
+  gpt-4o-audio-preview-2024-12-17
 - **Limits**: 30,000 TPM, 500 RPM, 90,000 TPD
 - **gpt-4o-audio-preview-2025-06-03**: 250,000 TPM, 3,000 RPM
 
@@ -140,17 +142,22 @@ This document provides comprehensive information about available OpenAI models, 
 
 ## Abbreviations
 - **TPM**: Tokens Per Minute
-- **RPM**: Requests Per Minute  
+- **RPM**: Requests Per Minute
 - **RPD**: Requests Per Day
 - **TPD**: Tokens Per Day
 
 ## Notes
 
 ### gpt-5-codex Model
-The `gpt-5-codex` model appears to be a specialized model that may require different API endpoints than standard chat completions. When using this model with tools like OpenAI Codex CLI, it may not work with standard `v1/chat/completions` endpoint and might require `v1/responses` or other specialized endpoints.
+The `gpt-5-codex` model appears to be a specialized model that may require
+different API endpoints than standard chat completions. When using this model
+with tools like OpenAI Codex CLI, it may not work with standard
+`v1/chat/completions` endpoint and might require `v1/responses` or other
+specialized endpoints.
 
 ### Model Compatibility
-When integrating with GitHub Actions or CI/CD pipelines, consider using models that are well-supported by standard endpoints:
+When integrating with GitHub Actions or CI/CD pipelines, consider using models
+that are well-supported by standard endpoints:
 - **Recommended for CI/CD**: gpt-4o-mini, gpt-4o, gpt-3.5-turbo
 - **High performance options**: gpt-4o, gpt-5 (if accessible)
 - **Cost-effective**: gpt-4o-mini, gpt-3.5-turbo
