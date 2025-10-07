@@ -1,11 +1,11 @@
 # Architecture
 
-DevOnboarder is delivered as a Docker Compose stack that automates onboarding
+DevOnboarder ships as a Docker Compose stack that automates onboarding
 workflows across Discord and the web. The public API brokers coordinator and bot
 requests, hands credential checks to the auth service, and persists shared state
 in the program database. Supporting tooling—Compose itself, the migrations job,
-and diagnostics—keeps those services aligned and observable so coordinators can
-ramp contributors without drift.
+and diagnostics—keeps those services aligned, observable, and repeatable so
+coordinators can ramp contributors without drift.
 
 ```mermaid
 flowchart LR
@@ -34,6 +34,7 @@ flowchart LR
     API -->|Credential handoff| Auth
     Auth -->|Session + token store| DB
     API -->|Workflow + AAR state| DB
+    Frontend -->|State hydration| API
 
     Migrations -->|Schema & seed data| DB
     Diagnostics -->|API smoke tests| API
@@ -80,8 +81,8 @@ flowchart LR
 2. The API validates the request with the auth service, writes onboarding and
    Discord session state to the shared database, and emits updated workflow
    steps.
-3. Coordinators review the same workflow data via the frontend, which reads from
-   the API and surfaces diagnostics.
+3. Coordinators review the same workflow data via the frontend, which uses the
+   API for reads and mutations while surfacing automation diagnostics.
 4. Diagnostics jobs continuously probe the API, Discord bot, and frontend while
    checking database health. Failures raise guardrail alerts inside the
    frontend, ensuring contributors remain within the automation envelope.
@@ -89,13 +90,16 @@ flowchart LR
 ## Operational coupling
 
 - **Docker Compose:** Defines the multi-container topology in `docker-compose.yml`.
-  Every service, including the operational helpers, shares the same network and
-  environment configuration so onboarding automation can be reproduced locally
-  and in CI with `docker compose up`.
+  Every service, including the operational helpers, shares the same network,
+  environment configuration, and mounted volumes so onboarding automation can be
+  reproduced locally and in CI with `docker compose up`.
 - **Migrations job:** Executed with `docker compose run --rm migrations` so
   schema changes land before services come online. This keeps the API, auth
-  service, and Discord bot aligned on data contracts during onboarding events.
+  service, and Discord bot aligned on data contracts during onboarding events,
+  and the job exits cleanly to prevent outdated containers from accepting
+  traffic.
 - **Diagnostics job:** Triggered with `docker compose run --rm diagnostics` to
   hit API endpoints, verify Discord command wiring, and sanity-check the
-  frontend. Results feed the shared database and surface in the frontend so
-  coordinators can catch drift before it blocks a contributor.
+  frontend. Results feed the shared database, surface in the frontend, and can
+  be inspected from CI artifacts so coordinators catch drift before it blocks a
+  contributor.
