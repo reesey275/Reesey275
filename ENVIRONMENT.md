@@ -4,12 +4,26 @@ This is a full setup plan for your **Codex-powered GitHub Profile Repository**, 
 
 ---
 
-### \U0001f464 Chad Reesey – Technical Profile Overview
+### 👤 Chad Reesey – Technical Profile Overview
 
+**GitHub:** [reesey275](https://github.com/reesey275) | **Member Since:** June 2013  
 **Location:** Cocoa Beach, Florida 32931  
 **Email:** creesey@wgu.edu / chad.reesey@outlook.com  
-**LinkedIn:** [linkedin.com/in/chad-reesey](https://www.linkedin.com/in/chad-reesey)  
+**Company:** [The Angry Gamer Show Productions](https://theangrygamershow.com)  
 **Status:** U.S. Air Force Veteran | Pursuing B.S. in Computer Science, WGU (2024–2027)
+
+**Social Media:**
+- **LinkedIn:** [in/chad-reesey](https://linkedin.com/in/chad-reesey)
+- **Twitter/X:** [@reesey275](https://x.com/reesey275)
+- **Facebook:** [Reesey275](https://facebook.com/Reesey275)
+- **Instagram:** [reesey275](https://instagram.com/reesey275)
+
+**GitHub Profile Stats:**
+- **Public Repositories:** 2 active projects
+- **Private Repositories:** 3 development repos
+- **Primary Languages:** Python, Shell, JavaScript, PowerShell
+- **Followers:** 13 | **Following:** 19
+- **Bio:** Veteran software engineer and systems architect building secure, self-hosted tools and AI-integrated platforms. NSLS-inducted leader, founder of TAGS
 
 #### \u2705 Core Strengths
 - **Infrastructure & Automation:** 25+ years across civilian/government environments
