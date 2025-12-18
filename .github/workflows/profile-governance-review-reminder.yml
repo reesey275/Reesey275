@@ -1,0 +1,52 @@
+name: Profile Governance Review Reminder
+
+on:
+  schedule:
+    # Run weekly on Mondays at 9:00 AM UTC (convert to your timezone as needed)
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  check-and-create-review-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if review is due and create issue if needed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const reviewDueDate = new Date('2026-01-18');
+            const today = new Date();
+            
+            if (today < reviewDueDate) {
+              console.log(`Review due date not yet reached (${reviewDueDate.toISOString()}). Skipping.`);
+              return;
+            }
+            
+            // Check if issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'profile-governance-review',
+              state: 'open'
+            });
+            
+            if (issues.data.length > 0) {
+              console.log(`Review issue already exists: ${issues.data[0].html_url}`);
+              return;
+            }
+            
+            // Create the review issue
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Profile Governance Review Due',
+              body: `30-day cold review cycle reached.\n\n**Review Scope:**\n- Remove or tighten any claim that lacks evidence\n- Update links if repository structure changes\n- Confirm "Featured Projects" reflect current reality\n\n**Governance Reference:** [docs/GOVERNANCE/PROFILE_GOVERNANCE.md](../blob/main/docs/GOVERNANCE/PROFILE_GOVERNANCE.md)\n\n**Next Review Due:** 2026-02-18`,
+              labels: ['profile-governance-review'],
+              assignee: context.actor
+            });
+            
+            console.log(`Created review issue: ${issue.data.html_url}`);
