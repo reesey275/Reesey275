@@ -26,6 +26,11 @@ heals itself.
 **Public Repositories:** 3 active projects • 3 private development repos
 **Organization:** [The Angry Gamer Show Productions](https://github.com/theangrygamershowproductions) - 9 repositories
 
+## 📈 **Weekly Development Stats**
+
+<!--START_SECTION:waka-->
+<!--END_SECTION:waka-->
+
 ## 🎯 **Featured Projects**
 
 ### [TAGS Ecosystem](https://github.com/theangrygamershowproductions)
@@ -102,7 +107,7 @@ heals itself.
 - [📄 Resume](resume/resume.pdf) - Complete professional background
 - [🧠 Philosophy](PHILOSOPHY.md) - Core methodology and approach
 - [📚 Journal Index](docs/Journal_Index.md) - Learning documentation
-- [🔍 AAR Index](docs/AAR_Index.md) - After Action Reports
+- [�� AAR Index](docs/AAR_Index.md) - After Action Reports
 
 ---
 
