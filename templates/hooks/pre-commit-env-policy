@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# pre-commit-env-policy
+# Blocks commits containing real .env files (with secrets)
+# Allows only: .env.example, .env.TEMPLATE, .env.template
+#
+# Installation (per repo):
+#   cp ~/dev/templates/pre-commit-env-policy .githooks/pre-commit
+#   chmod +x .githooks/pre-commit
+#   git config core.hooksPath .githooks
+#
+# Or for local hooks:
+#   cp ~/dev/templates/pre-commit-env-policy .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+#
+
+set -euo pipefail
+
+# Only these env files are allowed to be committed
+ALLOWLIST_REGEX='^\.env\.(example|TEMPLATE|template)$'
+
+# Match any .env file (with or without suffix)
+DENY_REGEX='\.env(\.[^/]*)?$'
+
+# Get all staged files (Added, Copied, Modified)
+STAGED_FILES="$(git diff --cached --name-only --diff-filter=ACM | sed '/^$/d')"
+[ -z "$STAGED_FILES" ] && exit 0
+
+FAIL=0
+BLOCKED_FILES=""
+
+while IFS= read -r file; do
+  filename=$(basename "$file")
+  
+  # Check if it's an env file
+  if [[ "$filename" =~ $DENY_REGEX ]]; then
+    # Check if it's in the allowlist
+    if [[ ! "$filename" =~ $ALLOWLIST_REGEX ]]; then
+      echo "[env-policy] ❌ Forbidden env file staged: $file"
+      BLOCKED_FILES="${BLOCKED_FILES}  - $file\n"
+      FAIL=1
+    fi
+  fi
+done <<< "$STAGED_FILES"
+
+if [ "$FAIL" -eq 1 ]; then
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "❌ COMMIT BLOCKED: Real .env file(s) detected"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  echo "Blocked files:"
+  echo -e "$BLOCKED_FILES"
+  echo ""
+  echo "Only these env files are allowed to be committed:"
+  echo "  ✅ .env.example      (lean version, no secrets)"
+  echo "  ✅ .env.TEMPLATE     (documented version, no secrets)"
+  echo "  ✅ .env.template     (lowercase variant)"
+  echo ""
+  echo "Real .env files with secrets should NEVER be committed."
+  echo ""
+  echo "To fix:"
+  echo "  git reset HEAD $file"
+  echo "  # Then ensure .env is in .gitignore"
+  echo ""
+  echo "To bypass this check (NOT RECOMMENDED):"
+  echo "  git commit --no-verify"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  exit 1
+fi
+
+exit 0
