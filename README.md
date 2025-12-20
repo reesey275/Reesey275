@@ -20,18 +20,20 @@ I build systems the way mission-critical operations demand they be built:
 If a system requires tribal knowledge to function, it is already a liability.
 
 ## 🔧 How I Work
-- Written context before meetings; decisions documented so they aren't lost
+- Written context before decisions; initial meetings are used for scoping and discovery when requirements are still forming
 - Bias toward observable, repeatable, resilient systems
 - Deterministic CI, linting, documentation validation, and reproducible builds
 - Clear standards, direct feedback, and auditability over hand-waving
 
 ## 📊 GitHub Stats
 
-**Primary Languages:** Python • Shell • JavaScript • TypeScript • PowerShell  
+**Primary Languages:** Python • Shell (POSIX/Bash) • JavaScript • TypeScript • PowerShell  
 **Public Repositories:** 3 active projects • 3 private development repos  
 **Organization:** [The Angry Gamer Show Productions](https://github.com/theangrygamershowproductions) — 9 repositories
 
 ### GitHub Contribution Activity
+
+Note: Contribution activity charts are GitHub-generated; current ratios reflect a solo build phase (more commits than reviews).
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=reesey275&show_icons=true&theme=dark&count_private=true&include_all_commits=true)
 ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=reesey275&layout=compact&theme=dark&langs_count=8)
