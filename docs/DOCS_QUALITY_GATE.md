@@ -19,7 +19,7 @@
 3. **Smoke Test** ✅
    - Branch: `test/docs-quality-smoke-test`
    - Status: Pushed to origin; waiting for PR creation
-   - Purpose: Verify workflow catches intentional typos (the, receive)
+   - Purpose: Verify workflow catches intentional typos (teh, recieve) <!-- codespell:ignore teh,recieve -->
 
 ### Next Steps (Manual, Requires GitHub UI)
 
@@ -31,7 +31,7 @@ The smoke test branch is already pushed. Create a PR:
 - Confirm the docs-quality workflow fails
 
 **Expected behavior:**
-- Codespell should fail on "the" and "receive"
+- Codespell should fail on "teh" and "recieve" <!-- codespell:ignore teh,recieve -->
 - PR should show red X on the docs-quality check
 
 #### Step 2: Enable Branch Protection for `main`
@@ -50,7 +50,7 @@ Once you confirm the workflow runs:
 
 #### Step 3: Verify Protection Works
 1. Try to merge the smoke test PR without fixing errors → should be blocked
-2. Fix `SMOKE_TEST.md` (remove "the", "receive", "ISaaS")
+2. Fix `SMOKE_TEST.md` (remove "teh", "recieve", "ISaaS") <!-- codespell:ignore teh,recieve -->
 3. Verify workflow re-runs and passes
 4. Merge succeeds → gate is working
 
