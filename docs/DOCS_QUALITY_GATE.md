@@ -31,7 +31,7 @@ The smoke test branch is already pushed. Create a PR:
 - Confirm the docs-quality workflow fails
 
 **Expected behavior:**
-- Codespell should fail on "teh" and "recieve"
+- Codespell should fail on "the" and "receive"
 - PR should show red X on the docs-quality check
 
 #### Step 2: Enable Branch Protection for `main`
@@ -50,12 +50,14 @@ Once you confirm the workflow runs:
 
 #### Step 3: Verify Protection Works
 1. Try to merge the smoke test PR without fixing errors → should be blocked
-2. Fix `SMOKE_TEST.md` (remove "teh", "recieve", "ISaaS")
+2. Fix `SMOKE_TEST.md` (remove "the", "receive", "ISaaS")
 3. Verify workflow re-runs and passes
 4. Merge succeeds → gate is working
 
 #### Step 4: Delete Test Branch & File
+
 Once verified:
+
 ```bash
 git checkout main
 git pull origin main
@@ -98,6 +100,7 @@ If the workflow fails unexpectedly:
    - PR page → "Checks" tab → "docs-quality" → "View details"
 
 2. **Test locally (optional):**
+
    ```bash
    # Codespell
    codespell --config .codespellrc .
@@ -110,6 +113,7 @@ If the workflow fails unexpectedly:
    ```
 
 3. **Add to .codespellrc if false positive:**
+
    ```ini
    ignore-words-list = example-word
    ```
