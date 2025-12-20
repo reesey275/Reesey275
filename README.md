@@ -2,6 +2,15 @@
 
 > I'm a veteran software engineer and systems architect. I build secure, self-hosted tools and AI-integrated platforms. I'm an NSLS-inducted (National Society of Leadership and Success) leader, and I founded TAGS (The Angry Gamer Show Productions).
 
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white&style=flat-square)](https://www.python.org/)
+[![Bash](https://img.shields.io/badge/Shell-POSIX%2FBash-4EAA25?logo=gnubash&logoColor=white&style=flat-square)](https://pubs.opengroup.org/onlinepubs/9699919799/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white&style=flat-square)](https://www.typescriptlang.org/)
+[![Docker](https://img.shields.io/badge/Docker-Containerization-2496ED?logo=docker&logoColor=white&style=flat-square)](https://www.docker.com/)
+[![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white&style=flat-square)](https://docs.github.com/actions)
+
+<!-- Optional ASCII header -->
+## 🥔 Chad Reesey — Mr. Potato
+
 ## 🚀 About Me
 - Veteran | Systems-first builder | DevOps & governance automation
 - I build thinking systems: **visible learning → doctrine → automation**
