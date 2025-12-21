@@ -98,19 +98,12 @@ jobs:
           RANGE_END=$(echo "$STATS" | jq -r '.data.end // ""' | cut -d'T' -f1)
           TIMEZONE=$(echo "$STATS" | jq -r '.data.timezone // "UTC"')
           
-          # Extract day-of-week stats
-          echo "Debug: Day-of-week breakdown"
-          echo "$STATS" | jq -r '(.data.days // [])[] | "- \(.date // "unknown"): \(.text // "0 secs") (\(.percent // 0)% / \(.total_seconds // 0) sec)"'
-          
-          # Fetch GitHub language stats
-          echo "Fetching GitHub language statistics..."
+          # Fetch GitHub language stats (non-fork repos with language info)
           GITHUB_LANGUAGES=$(curl -sf -H "Authorization: Bearer ${{ github.token }}" \
             "https://api.github.com/users/reesey275/repos?per_page=100&type=owner" | \
             jq -r '[.[] | select(.fork == false and .language != null) | .language] | group_by(.) | map({language: .[0], count: length}) | sort_by(-.count) | .[:5]')
           
           TOTAL_REPOS=$(echo "$GITHUB_LANGUAGES" | jq -r 'map(.count) | add // 0')
-          echo "Debug: Total repos with languages: $TOTAL_REPOS"
-          echo "$GITHUB_LANGUAGES" | jq -r '.[] | "- \(.language): \(.count) repos"'
 
           # Build progress bar function (using braille blocks like athul/waka-readme)
           make_bar() {
@@ -207,40 +200,51 @@ jobs:
             fi
           done
           
-          # Find most productive day
+          # Find most productive day (integer comparison with proper handling)
           max_seconds=0
-          max_day="Sunday"
+          max_day=""
           for i in {0..6}; do
             if [ -n "${day_data[$i]:-}" ]; then
-              seconds=$(echo "${day_data[$i]}" | jq -r '.total_seconds // 0')
-              if [ "$seconds" -gt "$max_seconds" ]; then
+              seconds=$(echo "${day_data[$i]}" | jq -r '.total_seconds // 0' | cut -d'.' -f1)
+              if [ "${seconds:-0}" -gt "$max_seconds" ]; then
                 max_seconds=$seconds
                 max_day="${day_names[$i]}"
               fi
             fi
           done
           
-          # Build day-of-week stats
-          for i in {1..6} 0; do  # Monday-Saturday, then Sunday
+          # Default to Sunday if no data available
+          if [ -z "$max_day" ]; then
+            max_day="Sunday"
+          fi
+          
+          # Build day-of-week stats (Monday-Sunday order for readability)
+          for i in {1..6} 0; do
             if [ -n "${day_data[$i]:-}" ]; then
               name="${day_names[$i]}"
               text=$(echo "${day_data[$i]}" | jq -r '.text // "0 secs"')
               pct=$(echo "${day_data[$i]}" | jq -r '.percent // 0')
-              bar=$(make_bar "${pct%.*}")
+              # Safe decimal removal: handle whole numbers and decimals
+              pct_int="${pct%.*}"
+              if [ -z "$pct_int" ]; then pct_int=0; fi
+              bar=$(make_bar "$pct_int")
               DAYS_OF_WEEK+="$(pad_name "$name")$(pad_time "$text")$bar   $(pad_pct "$pct")"$'\n'
             fi
           done
           
-          # Generate language repos section from GitHub
+          # Generate language repos section from GitHub (with division by zero guard)
           LANGUAGE_REPOS=""
           most_used_lang=""
-          if [ -n "${GITHUB_LANGUAGES:-}" ] && [ "$GITHUB_LANGUAGES" != "null" ]; then
+          if [ -n "${GITHUB_LANGUAGES:-}" ] && [ "$GITHUB_LANGUAGES" != "null" ] && [ "$TOTAL_REPOS" -gt 0 ]; then
             most_used_lang=$(echo "$GITHUB_LANGUAGES" | jq -r '.[0].language // "Unknown"')
             while IFS= read -r line; do
               lang=$(echo "$line" | jq -r '.language')
               count=$(echo "$line" | jq -r '.count')
               pct=$(echo "scale=2; $count * 100 / $TOTAL_REPOS" | bc)
-              bar=$(make_bar "${pct%.*}")
+              # Safe decimal removal
+              pct_int="${pct%.*}"
+              if [ -z "$pct_int" ]; then pct_int=0; fi
+              bar=$(make_bar "$pct_int")
               LANGUAGE_REPOS+="$(pad_name "$lang")$(printf "%-16s" "$count repos")$bar   $(pad_pct "$pct")"$'\n'
             done < <(echo "$GITHUB_LANGUAGES" | jq -c '.[]')
           fi
@@ -251,12 +255,10 @@ jobs:
           # Build the full stats section
           STATS_CONTENT="
           \`\`\`txt
-          🌍 Time Zone: ${TIMEZONE}
           📅 ${RANGE_START} - ${RANGE_END}
-
           ⏱️  Total: ${TOTAL}  |  Daily Avg: ${DAILY_AVG}  |  Best Day: ${BEST_DAY_DATE} (${BEST_DAY_TIME})
+          🌍 Time Zone: ${TIMEZONE}
 
-          
           📊 I'm Most Productive on ${max_day}
           ${DAYS_OF_WEEK}
           💻 Languages
@@ -270,8 +272,8 @@ jobs:
           📊 Categories
           ${CATEGORIES}"
           
-          # Add language repos section if available
-          if [ -n "${LANGUAGE_REPOS:-}" ]; then
+          # Add language repos section only if data exists
+          if [ -n "${LANGUAGE_REPOS:-}" ] && [ -n "${most_used_lang:-}" ]; then
             STATS_CONTENT+="
           🔤 I Mostly Code in ${most_used_lang}
           ${LANGUAGE_REPOS}"
