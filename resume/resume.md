@@ -1,6 +1,6 @@
 # Chad Reesey | Software Engineer & Systems Architect
 
-> **Professional Resume**: For detailed work history and contact information, please reach out via [LinkedIn](https://linkedin.com/in/chad-reesey) or email at reesey275@theangrygamershow.com
+> **Professional Resume**: For detailed work history and contact information, please reach out via [LinkedIn](https://www.linkedin.com/in/chad-reesey) or email at reesey275@theangrygamershow.com
 
 ---
 
@@ -81,7 +81,7 @@
 - **[PortalSDK](https://github.com/reesey275/PortalSDK)**: Developer productivity toolkit
 - **[spotify-dev-toolkit](https://github.com/reesey275/spotify-dev-toolkit)**: Full-stack Spotify playlist management (API + SPA + CLI)
 - **[SquirrelFocus](https://github.com/reesey275/squirrelfocus)**: Lightweight journaling for actionable documentation
-- **core-instructions**: Engineering policies and governance-as-code documentation
+- **[core-instructions](https://github.com/reesey275/reesey275/tree/main/docs)**: Engineering policies and governance-as-code documentation
 
 ---
 
@@ -114,7 +114,7 @@ Veteran — Mission-critical operations training and execution
 **For detailed work history, references, or opportunities:**
 
 - **📧 Email**: reesey275@theangrygamershow.com
-- **💼 LinkedIn**: [linkedin.com/in/chad-reesey](https://linkedin.com/in/chad-reesey)
+- **💼 LinkedIn**: [linkedin.com/in/chad-reesey](https://www.linkedin.com/in/chad-reesey)
 - **🌐 Company**: [The Angry Gamer Show Productions](https://theangrygamershow.com)
 - **📱 GitHub**: [github.com/reesey275](https://github.com/reesey275)
 
@@ -123,8 +123,8 @@ Veteran — Mission-critical operations training and execution
 ## 🌐 Additional Links
 
 - **🐦 Twitter/X**: [@reesey275](https://x.com/reesey275)
-- **📘 Facebook**: [Reesey275](https://facebook.com/Reesey275)
-- **📸 Instagram**: [reesey275](https://instagram.com/reesey275)
+- **📘 Facebook**: [Reesey275](https://www.facebook.com/Reesey275)
+- **📸 Instagram**: [reesey275](https://www.instagram.com/reesey275)
 - **🎓 Student Email**: creesey@wgu.edu
 
 ---
