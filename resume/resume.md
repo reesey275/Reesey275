@@ -131,7 +131,7 @@ Veteran — Mission-critical operations training and execution
 
 ## 🧭 Engineering Philosophy
 
-_"Structure over improvisation • Accountability over ambiguity • Correctness over cleverness"_
+"Structure over improvisation • Accountability over ambiguity • Correctness over cleverness"
 
 I build systems the way mission-critical operations demand they be built. If a system requires tribal knowledge to function, it is already a liability. My approach emphasizes observable, repeatable, resilient systems with clear standards, direct feedback, and auditability.
 
