@@ -1,4 +1,4 @@
-# Chad Reesey | reesey275
+# Chad Reesey | reesey275 | Mr. Potato
 
 > I'm a veteran software engineer and systems architect. I build secure, self-hosted tools and AI-integrated platforms. I'm an NSLS-inducted (National Society of Leadership and Success) leader, and I founded TAGS (The Angry Gamer Show Productions).
 
