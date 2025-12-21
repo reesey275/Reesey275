@@ -216,7 +216,7 @@ Linux • Ubuntu • Docker • NGINX • Python • Shell (POSIX/Bash) • GitH
 
 ## 📋 Resources
 
-- [📄 Resume](resume/resume.pdf) — Complete professional background
+- [📄 Resume](resume/resume.md) — Professional background and experience
 - [🧠 Philosophy](PHILOSOPHY.md) — Core methodology and approach
 - [📚 Journal Index](docs/Journal_Index.md) — Learning documentation
 - [🔍 AAR Index](docs/AAR_Index.md) — After Action Reports

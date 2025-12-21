@@ -75,7 +75,7 @@ reesey275/
 │   └── run_codex_agent.sh
 │
 ├── resume/
-│   └── resume.pdf
+│   └── resume.md
 │
 ├── PHILOSOPHY.md
 │

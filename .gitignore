@@ -6,6 +6,8 @@ logs/*
 .codex/.state/*
 !.codex/.state/.gitkeep
 
-# Sensitive resume/personal info
+# Sensitive resume/personal info - PDFs may contain private contact details
 resume/*.pdf
 *.pdf
+# Allow markdown resumes (sanitized public version)
+!resume/resume.md
