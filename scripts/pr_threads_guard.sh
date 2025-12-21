@@ -104,6 +104,7 @@ REPO="$(jq -r '.name' <<<"${REPO_INFO}")"
 
 # Fix A: GraphQL query with pagination support (cursor-based)
 # Accumulates all threads across pages to handle PRs with >100 threads
+# shellcheck disable=SC2016  # GraphQL query intentionally uses single quotes
 QUERY='
 query($owner: String!, $name: String!, $number: Int!, $after: String) {
   repository(owner: $owner, name: $name) {
