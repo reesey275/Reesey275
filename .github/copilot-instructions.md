@@ -21,7 +21,7 @@ reesey275 is a personal knowledge management and productivity system with automa
 ## PR Guidelines
 
 ### Title Format
-```
+```text
 <type>(<area>): <subject>
 ```
 
@@ -89,6 +89,7 @@ Types: FEAT, FIX, DOCS, STYLE, REFACTOR, TEST, CHORE, CI
 ```
 
 ### Testing Before Commit
+
 ```bash
 # Full verification
 bash scripts/lint_markdown.sh
@@ -117,6 +118,7 @@ gh pr view <PR_NUMBER>  # Verify auto-merge works
 First check: `.github/WAKA_AUTO_MERGE_GUIDE.md` (complete troubleshooting guide)
 
 Quick diagnostics:
+
 ```bash
 # Verify PAT secret exists
 gh secret list | grep WAKA_PAT
@@ -130,7 +132,7 @@ gh workflow run waka-readme.yml
 
 ## Repository Structure
 
-```
+```text
 .github/
 ├── workflows/
 │   └── waka-readme.yml          # Auto-merge WakaTime stats workflow

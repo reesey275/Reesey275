@@ -3,7 +3,7 @@
 ## Table of Contents
 - [Quick Start](#quick-start)
 - [Known Limitations](#wakatime-free-tier-limitations)
-- [Daily Automation Schedule](#daily-automation-schedule)
+- [Verify Daily Automation](#step-5-verify-daily-automation)
 - [Problem & Solution](#problem-statement)
 - [Implementation](#implementation-steps)
 - [Testing](#step-4-test-the-fix)
@@ -34,17 +34,19 @@ The workflow is fully functional and requires zero manual intervention:
 **GitHub Security Policy**: Pull requests created with `GITHUB_TOKEN` (bot token) do **NOT** trigger `pull_request` workflow events.
 
 This is intentional to prevent infinite workflow loops:
+
 ```text
 Workflow runs → Creates PR → Triggers workflow → Creates PR → ∞
 ```
 
-**Impact**: 
+**Impact**:
 - `lint.yml` requires `pull_request` event to run
-- `docs-quality.yml` requires `pull_request` event to run  
+- `docs-quality.yml` requires `pull_request` event to run
 - No workflows = no commit status = auto-merge blocked
 
 ### Why workflow_dispatch Didn't Work
 Initial attempt (PR #93) added `workflow_dispatch` trigger to workflows, allowing manual execution:
+
 ```yaml
 on:
   pull_request:
@@ -94,13 +96,13 @@ Personal Access Tokens (PATs) are **not** subject to bot token restrictions:
 
 4. **Repository permissions** (exact requirements):
 
-   ```
-   Actions: Read and write          # Trigger workflow_dispatch
-   Commit statuses: Read and write  # Optional but helpful
-   Contents: Read and write          # Git operations (commit, push, branch)
-   Metadata: Read-only               # Auto-included, required
-   Pull requests: Read and write     # Create/update PRs, enable auto-merge
-   ```
+  ```text
+  Actions: Read and write          # Trigger workflow_dispatch
+  Commit statuses: Read and write  # Optional but helpful
+  Contents: Read and write          # Git operations (commit, push, branch)
+  Metadata: Read-only               # Auto-included, required
+  Pull requests: Read and write     # Create/update PRs, enable auto-merge
+  ```
 
 5. **Generate and copy token**:
    - Click "Generate token"
@@ -193,6 +195,7 @@ watch -n 5 'gh pr view <PR_NUMBER> --json state,statusCheckRollup,autoMergeReque
 ### Step 5: Verify Daily Automation
 
 The workflow runs automatically via cron:
+
 ```yaml
 on:
   schedule:
@@ -407,6 +410,7 @@ WakaTime paid tier ($9-19/month) provides:
 ### Current Implementation (Free Tier Friendly)
 
 The workflow is configured to work well with free tier limitations:
+
 ```yaml
 on:
   schedule:
@@ -442,6 +446,7 @@ on:
 4. **Verify**: Next PR auto-merges successfully
 
 ### Monitoring
+
 ```bash
 # Check recent workflow runs
 gh run list --workflow=waka-readme.yml --limit 10
