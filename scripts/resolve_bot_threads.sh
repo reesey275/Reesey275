@@ -79,6 +79,7 @@ echo "Mode: $(${DRY_RUN} && echo "DRY RUN" || echo "LIVE")"
 echo ""
 
 # Query unresolved bot threads with GraphQL
+# shellcheck disable=SC2016  # GraphQL query intentionally uses single quotes
 QUERY='
 query($owner:String!, $name:String!, $pr:Int!) {
   repository(owner:$owner, name:$name) {
@@ -199,6 +200,7 @@ Thread resolved automatically after checks passed."
   fi
   
   # Step 2: Resolve the thread
+  # shellcheck disable=SC2016  # GraphQL mutation intentionally uses single quotes
   if gh api graphql -f query='mutation($id:ID!){
     resolveReviewThread(input:{threadId:$id}){ thread{isResolved} }
   }' -F id="${THREAD_ID}" >/dev/null 2>&1; then
