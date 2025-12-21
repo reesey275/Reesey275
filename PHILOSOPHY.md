@@ -16,11 +16,11 @@ A repeatable method for building durable understanding (not test-cramming). Work
 
 ## Principles
 
-* **Outcomes over identity:** The goal is correct, repeatable results.
-* **Behavior beats memorization:** If you can't *predict and reproduce* behavior, you don't own it yet.
-* **Assumptions are liabilities:** Name them, test them, kill the wrong ones.
-* **One variable at a time:** Change control prevents self-inflicted confusion.
-* **Artifacts are the end product:** Notes, checklists, labs, and tests outlive motivation.
+- **Outcomes over identity:** The goal is correct, repeatable results.
+- **Behavior beats memorization:** If you can't *predict and reproduce* behavior, you don't own it yet.
+- **Assumptions are liabilities:** Name them, test them, kill the wrong ones.
+- **One variable at a time:** Change control prevents self-inflicted confusion.
+- **Artifacts are the end product:** Notes, checklists, labs, and tests outlive motivation.
 
 ---
 
@@ -32,10 +32,10 @@ A repeatable method for building durable understanding (not test-cramming). Work
 
 Define the target and constraints.
 
-* **Goal:** What do I need to be able to do?
-* **Done means:** What observable result proves success?
-* **Constraints:** Time, tools, environment, versions, permissions, inputs.
-* **Known/unknown:** What do I already know? What is unclear?
+- **Goal:** What do I need to be able to do?
+- **Done means:** What observable result proves success?
+- **Constraints:** Time, tools, environment, versions, permissions, inputs.
+- **Known/unknown:** What do I already know? What is unclear?
 
 **Output:** A one-sentence problem statement + "done" criteria.
 
@@ -45,10 +45,10 @@ Define the target and constraints.
 
 Build a mental model before you collect facts.
 
-* **Explain (1 paragraph):** What is it, why does it exist, where is it used?
-* **System model:** Inputs → Process → Outputs
-* **Failure modes (3):** How does it break? How would I detect each break?
-* **Assumptions:** List them explicitly (versions, OS, runtime, data shape).
+- **Explain (1 paragraph):** What is it, why does it exist, where is it used?
+- **System model:** Inputs → Process → Outputs
+- **Failure modes (3):** How does it break? How would I detect each break?
+- **Assumptions:** List them explicitly (versions, OS, runtime, data shape).
 
 **Output:** A simple model + failure-mode list.
 
@@ -58,9 +58,9 @@ Build a mental model before you collect facts.
 
 Prove the model with a minimal, runnable example.
 
-* **Minimal reproduction:** Smallest example that demonstrates the concept.
-* **Instrument:** Print/log inputs and outputs.
-* **Convert to function/module:** Only after behavior is proven.
+- **Minimal reproduction:** Smallest example that demonstrates the concept.
+- **Instrument:** Print/log inputs and outputs.
+- **Convert to function/module:** Only after behavior is proven.
 
 **Output:** A tiny working lab/script.
 
@@ -70,10 +70,10 @@ Prove the model with a minimal, runnable example.
 
 Make it durable by attacking it.
 
-* **Edge cases (2–5):** Null/empty, invalid types, boundary values, timeouts, permissions.
-* **Alternative explanations (top 3):** What else could cause the same symptoms?
-* **Disconfirming evidence:** What would change my mind?
-* **Repeatability:** Can I run it again and get the same result?
+- **Edge cases (2–5):** Null/empty, invalid types, boundary values, timeouts, permissions.
+- **Alternative explanations (top 3):** What else could cause the same symptoms?
+- **Disconfirming evidence:** What would change my mind?
+- **Repeatability:** Can I run it again and get the same result?
 
 **Output:** A short list of tests + observed outcomes.
 
@@ -83,10 +83,10 @@ Make it durable by attacking it.
 
 Turn learning into an artifact anyone can reuse.
 
-* **Checklist:** Steps + expected outputs.
-* **Verification:** Primary source references (official docs/spec/code/logs).
-* **Teach-back:** 5 bullets: problem / root cause / fix / prevention / reference.
-* **Storage:** Put it where Future You will actually find it.
+- **Checklist:** Steps + expected outputs.
+- **Verification:** Primary source references (official docs/spec/code/logs).
+- **Teach-back:** 5 bullets: problem / root cause / fix / prevention / reference.
+- **Storage:** Put it where Future You will actually find it.
 
 **Output:** A reusable guide + proof.
 
@@ -124,9 +124,9 @@ Turn learning into an artifact anyone can reuse.
 
 **Quiz (10):**
 
-* 5 recall
-* 3 applied scenarios
-* 2 edge/trick cases
+- 5 recall
+- 3 applied scenarios
+- 2 edge/trick cases
 
 ---
 
@@ -136,24 +136,24 @@ Use AI for **structure and challenge**, not authority.
 
 ### Allowed
 
-* Turn raw material into **lessons**, **quizzes**, **checklists**, and **labs**
-* Generate **edge cases**, **failure modes**, and **test plans**
-* Explain concepts at different levels of depth
+- Turn raw material into **lessons**, **quizzes**, **checklists**, and **labs**
+- Generate **edge cases**, **failure modes**, and **test plans**
+- Explain concepts at different levels of depth
 
 ### Not Allowed (without verification)
 
-* Commands/flags/configs used in production
-* Security-sensitive guidance
-* Anything where being wrong causes real damage
+- Commands/flags/configs used in production
+- Security-sensitive guidance
+- Anything where being wrong causes real damage
 
 ### "Anti-bullshit" Questions
 
-* What assumptions are you making?
-* What evidence supports this?
-* What would change your mind?
-* Give 3 alternative causes.
-* Provide a minimal reproduction + pass/fail test.
-* Cite primary sources or explain how to verify.
+- What assumptions are you making?
+- What evidence supports this?
+- What would change your mind?
+- Give 3 alternative causes.
+- Provide a minimal reproduction + pass/fail test.
+- Cite primary sources or explain how to verify.
 
 ---
 
@@ -182,9 +182,9 @@ Use AI for **structure and challenge**, not authority.
 
 ## Notes
 
-* If you can **predict the output before running**, you understand.
-* If you can **teach it in 60 seconds**, you own it.
-* If you can **write a checklist**, you can transfer it.
+- If you can **predict the output before running**, you understand.
+- If you can **teach it in 60 seconds**, you own it.
+- If you can **write a checklist**, you can transfer it.
 
 ---
 
@@ -226,9 +226,9 @@ Optional (recommended): link to the primary source you verified against.
 
 Pick a topic and build a clean mental model.
 
-* Define goal + "done means"
-* Inputs → Process → Outputs
-* 3 failure modes + detection
+- Define goal + "done means"
+- Inputs → Process → Outputs
+- 3 failure modes + detection
 
 **Deliverable:** Explanation + system model + failure modes.
 
@@ -238,8 +238,8 @@ Pick a topic and build a clean mental model.
 
 Prove the concept with the smallest runnable example.
 
-* Run it
-* Log input/output
+- Run it
+- Log input/output
 
 **Deliverable:** Minimal lab + expected output.
 
@@ -249,8 +249,8 @@ Prove the concept with the smallest runnable example.
 
 Break it on purpose.
 
-* Pick one edge case (empty/null/invalid/boundary)
-* Observe what happens
+- Pick one edge case (empty/null/invalid/boundary)
+- Observe what happens
 
 **Deliverable:** Edge case + result + what it taught you.
 
@@ -260,8 +260,8 @@ Break it on purpose.
 
 Force deeper understanding.
 
-* List 3 plausible alternative explanations for the same behavior
-* Run 1 test that rules one out
+- List 3 plausible alternative explanations for the same behavior
+- Run 1 test that rules one out
 
 **Deliverable:** 3 alternatives + one disconfirming test.
 
@@ -273,11 +273,11 @@ Make it transferable.
 
 Write 5 bullets:
 
-  * problem
-  * root cause
-  * fix
-  * prevention
-  * verification source
+  - problem
+  - root cause
+  - fix
+  - prevention
+  - verification source
 
 **Deliverable:** Teach-back bullets.
 
@@ -287,8 +287,8 @@ Write 5 bullets:
 
 Turn it into a reusable procedure.
 
-* Checklist with steps + expected outputs
-* Re-run from scratch (or simulate "fresh machine")
+- Checklist with steps + expected outputs
+- Re-run from scratch (or simulate "fresh machine")
 
 **Deliverable:** Checklist + confirmation it repeats.
 
@@ -298,13 +298,13 @@ Turn it into a reusable procedure.
 
 Prove you own it.
 
-* Create 10 questions:
+- Create 10 questions:
 
-  * 5 recall
-  * 3 applied scenarios
-  * 2 edge/trick
-* Answer them without notes
-* Verify anything uncertain
+  - 5 recall
+  - 3 applied scenarios
+  - 2 edge/trick
+- Answer them without notes
+- Verify anything uncertain
 
 **Deliverable:** Quiz + score + corrections.
 
@@ -312,13 +312,13 @@ Prove you own it.
 
 ## Suggested Topic List (Pick One Per Day)
 
-* What does `===` do in JavaScript vs `==`?
-* What is an environment variable and how does it influence a process?
-* What is a Promise, and what does `await` actually wait on?
-* How do ports and sockets relate? (simple TCP client/server)
-* What's the difference between relative and absolute paths?
-* What does "idempotent" mean? Give one real example.
-* What's a database transaction? What breaks without one?
+- What does `===` do in JavaScript vs `==`?
+- What is an environment variable and how does it influence a process?
+- What is a Promise, and what does `await` actually wait on?
+- How do ports and sockets relate? (simple TCP client/server)
+- What's the difference between relative and absolute paths?
+- What does "idempotent" mean? Give one real example.
+- What's a database transaction? What breaks without one?
 
 ---
 
@@ -326,10 +326,10 @@ Prove you own it.
 
 By the end of 7 days, you should have:
 
-* 7 one-page artifacts
-* 7 runnable mini-labs
-* 7 checklists
-* a habit: explain → run → break → verify → document
+- 7 one-page artifacts
+- 7 runnable mini-labs
+- 7 checklists
+- a habit: explain → run → break → verify → document
 
 ---
 
@@ -343,13 +343,13 @@ Use this when a concept, checklist, or lab fails in production or in a real proj
 
 ## AAR Loop
 
-* **Expected:** What did we think would happen?
-* **Actual:** What happened (logs, outputs, timestamps, environment)?
-* **Delta:** What changed / what assumption was wrong?
-* **Root cause:** The simplest causal explanation supported by evidence.
-* **Fix:** Minimal fix + robust fix.
-* **Prevention:** Add a test, guardrail, or checklist step so this fails loudly next time.
-* **Update artifact:** Patch the checklist/lab/template so Future You doesn't relearn this the hard way.
+- **Expected:** What did we think would happen?
+- **Actual:** What happened (logs, outputs, timestamps, environment)?
+- **Delta:** What changed / what assumption was wrong?
+- **Root cause:** The simplest causal explanation supported by evidence.
+- **Fix:** Minimal fix + robust fix.
+- **Prevention:** Add a test, guardrail, or checklist step so this fails loudly next time.
+- **Update artifact:** Patch the checklist/lab/template so Future You doesn't relearn this the hard way.
 
 **Rule:** If it broke once, it earns a new edge case test and a prevention note.
 
