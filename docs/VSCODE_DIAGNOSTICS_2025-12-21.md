@@ -40,6 +40,7 @@ Automated WakaTime stats update from GitHub Actions.
 **Location:** `.github/workflows/docs-quality.yml`, line 7
 
 **Code Context:**
+
 ```yaml
 name: docs-quality
 
@@ -53,6 +54,7 @@ on:
 **Root Cause:** `workflow_dispatch:` is NESTED under `push:` instead of being sibling to `pull_request:` and `push:`
 
 **Fix Required:**
+
 ```yaml
 name: docs-quality
 
