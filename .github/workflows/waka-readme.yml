@@ -292,7 +292,8 @@ jobs:
 
           📊 Categories
 
-          ${CATEGORIES}"
+          ${CATEGORIES}
+          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           
           # Add language repos section only if data exists
           if [ -n "${LANGUAGE_REPOS:-}" ] && [ -n "${most_used_lang:-}" ]; then
