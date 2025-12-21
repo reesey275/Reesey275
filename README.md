@@ -203,7 +203,7 @@ Linux • Ubuntu • Docker • NGINX • Python • Shell (POSIX/Bash) • GitH
 ## 🎓 Continuous Learning
 
 - **National Society of Leadership and Success (NSLS)** — Inducted in recognition of leadership and academic excellence
-- **Western Governors University** — B.S. Software Engineering *(in progress)* — formalizing CS fundamentals to complement 25+ years of hands-on systems work
+- **Western Governors University** — B.S. Software Engineering _(in progress)_ — formalizing CS fundamentals to complement 25+ years of hands-on systems work
 
 ## 🌐 Connect With Me
 
