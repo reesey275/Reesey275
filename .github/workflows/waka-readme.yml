@@ -52,18 +52,61 @@ jobs:
             exit 1
           fi
           
-          # Aggregate summaries into stats format
-          STATS=$(echo "$SUMMARIES" | jq '{
+          # Aggregate summaries into stats format using simpler approach
+          # Calculate totals first
+          TOTAL_SECONDS=$(echo "$SUMMARIES" | jq '[.data[].grand_total.total_seconds] | add')
+          TOTAL_HOURS=$(echo "scale=0; $TOTAL_SECONDS / 3600" | bc)
+          TOTAL_MINS=$(echo "scale=0; ($TOTAL_SECONDS % 3600) / 60" | bc)
+          DAILY_AVG_HOURS=$(echo "scale=0; $TOTAL_SECONDS / 7 / 3600" | bc)
+          DAILY_AVG_MINS=$(echo "scale=0; ($TOTAL_SECONDS / 7 % 3600) / 60" | bc)
+          
+          # Build stats JSON using simpler jq operations
+          STATS=$(echo "$SUMMARIES" | jq --arg total "$TOTAL_SECONDS" \
+            --arg total_text "$TOTAL_HOURS hrs $TOTAL_MINS mins" \
+            --arg daily_text "$DAILY_AVG_HOURS hrs $DAILY_AVG_MINS mins" '{
             data: {
-              total_seconds_including_other_language: [.data[].grand_total.total_seconds] | add,
-              human_readable_total: ([.data[].grand_total.total_seconds] | add | . / 3600 | floor | tostring) + " hrs " + (([.data[].grand_total.total_seconds] | add % 3600 / 60 | floor | tostring) + " mins"),
-              human_readable_daily_average: ([.data[].grand_total.total_seconds] | add / 7 / 3600 | floor | tostring) + " hrs " + (([.data[].grand_total.total_seconds] | add / 7 % 3600 / 60 | floor | tostring) + " mins"),
-              languages: ([.data[].languages] | flatten | group_by(.name) | map({name: .[0].name, total_seconds: ([.[].total_seconds] | add), percent: 0, text: ""}) | sort_by(.total_seconds) | reverse | .[0:5] | to_entries | map(.value + {percent: (.value.total_seconds / ([..] | .total_seconds) | add) * 100 | floor, text: ((.value.total_seconds / 3600 | floor | tostring) + " hrs " + ((.value.total_seconds % 3600 / 60 | floor | tostring) + " mins"))})),
-              editors: ([.data[].editors] | flatten | group_by(.name) | map({name: .[0].name, total_seconds: ([.[].total_seconds] | add), percent: 0, text: ""}) | sort_by(.total_seconds) | reverse | .[0:3] | to_entries | map(.value + {percent: (.value.total_seconds / ([..] | .total_seconds) | add) * 100 | floor, text: ((.value.total_seconds / 3600 | floor | tostring) + " hrs " + ((.value.total_seconds % 3600 / 60 | floor | tostring) + " mins"))})),
-              operating_systems: ([.data[].operating_systems] | flatten | group_by(.name) | map({name: .[0].name, total_seconds: ([.[].total_seconds] | add), percent: 0, text: ""}) | sort_by(.total_seconds) | reverse | .[0:3] | to_entries | map(.value + {percent: (.value.total_seconds / ([..] | .total_seconds) | add) * 100 | floor, text: ((.value.total_seconds / 3600 | floor | tostring) + " hrs " + ((.value.total_seconds % 3600 / 60 | floor | tostring) + " mins"))})),
-              projects: ([.data[].projects] | flatten | group_by(.name) | map({name: .[0].name, total_seconds: ([.[].total_seconds] | add), percent: 0, text: ""}) | sort_by(.total_seconds) | reverse | .[0:5] | to_entries | map(.value + {percent: (.value.total_seconds / ([..] | .total_seconds) | add) * 100 | floor, text: ((.value.total_seconds / 3600 | floor | tostring) + " hrs " + ((.value.total_seconds % 3600 / 60 | floor | tostring) + " mins"))})),
-              categories: ([.data[].categories] | flatten | group_by(.name) | map({name: .[0].name, total_seconds: ([.[].total_seconds] | add), percent: 0, text: ""}) | sort_by(.total_seconds) | reverse | .[0:5] | to_entries | map(.value + {percent: (.value.total_seconds / ([..] | .total_seconds) | add) * 100 | floor, text: ((.value.total_seconds / 3600 | floor | tostring) + " hrs " + ((.value.total_seconds % 3600 / 60 | floor | tostring) + " mins"))})),
-              best_day: (.data | max_by(.grand_total.total_seconds) | {date: .range.date, text: ((.grand_total.total_seconds / 3600 | floor | tostring) + " hrs " + ((.grand_total.total_seconds % 3600 / 60 | floor | tostring) + " mins"))}),
+              total_seconds_including_other_language: ($total | tonumber),
+              human_readable_total: $total_text,
+              human_readable_daily_average: $daily_text,
+              languages: ([.data[].languages] | flatten | group_by(.name) | 
+                map({name: .[0].name, total_seconds: ([.[].total_seconds] | add)}) | 
+                sort_by(.total_seconds) | reverse | .[0:5] | 
+                map(. + {
+                  percent: (.total_seconds / ($total | tonumber) * 100 | floor),
+                  text: "\((.total_seconds / 3600 | floor)) hrs \(((.total_seconds % 3600) / 60 | floor)) mins"
+                })),
+              editors: ([.data[].editors] | flatten | group_by(.name) | 
+                map({name: .[0].name, total_seconds: ([.[].total_seconds] | add)}) | 
+                sort_by(.total_seconds) | reverse | .[0:3] | 
+                map(. + {
+                  percent: (.total_seconds / ($total | tonumber) * 100 | floor),
+                  text: "\((.total_seconds / 3600 | floor)) hrs \(((.total_seconds % 3600) / 60 | floor)) mins"
+                })),
+              operating_systems: ([.data[].operating_systems] | flatten | group_by(.name) | 
+                map({name: .[0].name, total_seconds: ([.[].total_seconds] | add)}) | 
+                sort_by(.total_seconds) | reverse | .[0:3] | 
+                map(. + {
+                  percent: (.total_seconds / ($total | tonumber) * 100 | floor),
+                  text: "\((.total_seconds / 3600 | floor)) hrs \(((.total_seconds % 3600) / 60 | floor)) mins"
+                })),
+              projects: ([.data[].projects] | flatten | group_by(.name) | 
+                map({name: .[0].name, total_seconds: ([.[].total_seconds] | add)}) | 
+                sort_by(.total_seconds) | reverse | .[0:5] | 
+                map(. + {
+                  percent: (.total_seconds / ($total | tonumber) * 100 | floor),
+                  text: "\((.total_seconds / 3600 | floor)) hrs \(((.total_seconds % 3600) / 60 | floor)) mins"
+                })),
+              categories: ([.data[].categories] | flatten | group_by(.name) | 
+                map({name: .[0].name, total_seconds: ([.[].total_seconds] | add)}) | 
+                sort_by(.total_seconds) | reverse | .[0:5] | 
+                map(. + {
+                  percent: (.total_seconds / ($total | tonumber) * 100 | floor),
+                  text: "\((.total_seconds / 3600 | floor)) hrs \(((.total_seconds % 3600) / 60 | floor)) mins"
+                })),
+              best_day: (.data | max_by(.grand_total.total_seconds) | {
+                date: .range.date, 
+                text: "\((.grand_total.total_seconds / 3600 | floor)) hrs \(((.grand_total.total_seconds % 3600) / 60 | floor)) mins"
+              }),
               start: .data[0].range.date,
               end: .data[-1].range.date,
               timezone: .data[0].range.timezone
